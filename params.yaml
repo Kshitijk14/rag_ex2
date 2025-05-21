@@ -1,0 +1,6 @@
+LOG_PATH: "logs"
+GAME_RULES_DATA_PATH: "data/game_rules"
+CHROMA_DB_PATH: "chromadb"
+CHROMA_DB_FILE: "chroma.sqlite3"
+CHUNK_SIZE: 800
+CHUNK_OVERLAP: 80
