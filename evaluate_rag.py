@@ -8,7 +8,7 @@ from datetime import datetime
 from typing import List, Dict, Any
 from logger import setup_logger
 from pipeline.stage_02_query_data import query_rag
-from utils import calc_f1_score
+from utils import calc_all_generation_scores
 
 
 # Load parameters from params.yaml
@@ -52,40 +52,56 @@ def evaluate_single_query(question: str, ground_truth: str, logger) -> Dict[str,
     
     # Get RAG response
     try:
-        predicted_answer = query_rag(question, logger)
+        # Get both answer and context
+        rag_result = query_rag(question, logger)
+        predicted_answer = rag_result['answer']
+        context = rag_result['context']
+        
         end_time = time.time()
         latency_ms = (end_time - start_time) * 1000  # Convert to milliseconds
         
-        # Calculate F1 score
-        f1_metrics = calc_f1_score(predicted_answer, ground_truth)
+        # Calculate all generation scores
+        all_scores = calc_all_generation_scores(predicted_answer, ground_truth, context)
         
-        return {
+        result = {
             'question': question,
             'predicted_answer': predicted_answer,
             'ground_truth': ground_truth,
+            'context': context[:200] + "..." if len(context) > 200 else context,  # Truncate for CSV
             'latency_ms': latency_ms,
-            'precision': f1_metrics['precision'],
-            'recall': f1_metrics['recall'],
-            'f1_score': f1_metrics['f1'],
             'success': True,
             'error': None
         }
+        
+        # Add all metric scores to result
+        result.update(all_scores)
+        
+        return result
         
     except Exception as e:
         end_time = time.time()
         latency_ms = (end_time - start_time) * 1000
         
-        return {
+        result = {
             'question': question,
             'predicted_answer': '',
             'ground_truth': ground_truth,
             'latency_ms': latency_ms,
-            'precision': 0.0,
-            'recall': 0.0,
-            'f1_score': 0.0,
             'success': False,
             'error': str(e)
         }
+        
+        # Add zero scores for all metrics
+        zero_scores = {
+            'precision': 0.0, 'recall': 0.0, 'f1': 0.0,
+            'exact_match': 0.0,
+            'rouge_l_precision': 0.0, 'rouge_l_recall': 0.0, 'rouge_l_f1': 0.0,
+            'bleu_1': 0.0, 'bleu_2': 0.0, 'bleu_3': 0.0, 'bleu_4': 0.0, 'bleu': 0.0,
+            'faithfulness': 0.0
+        }
+        result.update(zero_scores)
+        
+        return result
 
 def save_results_to_csv(results: List[Dict], logger):
     """
@@ -133,7 +149,7 @@ def run_evaluation():
     # Load and combine data from all paths
     eval_data = []
     for path in EVALUATION_DATA_PATHS:
-        logger.info(f"Loading evaluation data from {path}")
+        logger.info(f"[Stage 1] Loading evaluation data from {path}")
         data = load_evaluation_data(path)
         if not data:
             logger.warning(f"No valid data found in {path}")
@@ -146,7 +162,7 @@ def run_evaluation():
         logger.error("No evaluation data found from any source. Exiting.")
         return
 
-    logger.info(f"Total combined evaluation questions: {len(eval_data)}")
+    logger.info(f"[Stage 2] Total combined evaluation questions: {len(eval_data)}")
     
     # Run evaluation for each question
     results = []
@@ -170,23 +186,55 @@ def run_evaluation():
         })
         
         results.append(result)
-        logger.info(f"F1 Score: {result['f1_score']:.3f}, Latency: {result['latency_ms']:.1f}ms")
+        
+        # Log key metrics for this question
+        logger.info(f"[Stage 3] Scores -> "
+                    f"F1: {result.get('f1', 0):.3f}, "
+                    f"Precision: {result.get('precision', 0):.3f}, "
+                    f"Recall: {result.get('recall', 0):.3f}, "
+                    f"EM: {result.get('exact_match', 0):.3f}, "
+                    f"ROUGE-L: {result.get('rouge_l_f1', 0):.3f}, "
+                    f"BLEU: {result.get('bleu', 0):.3f}, "
+                    f"BLEU-1: {result.get('bleu_1', 0):.3f}, "
+                    f"BLEU-2: {result.get('bleu_2', 0):.3f}, "
+                    f"BLEU-3: {result.get('bleu_3', 0):.3f}, "
+                    f"BLEU-4: {result.get('bleu_4', 0):.3f}, "
+                    f"Faithfulness: {result.get('faithfulness', 0):.3f}, "
+                    f"Latency: {result['latency_ms']:.1f}ms")
     
     # Calculate aggregate metrics
     successful_results = [r for r in results if r['success']]
     if successful_results:
-        avg_f1 = sum(r['f1_score'] for r in successful_results) / len(successful_results)
-        avg_precision = sum(r['precision'] for r in successful_results) / len(successful_results)
-        avg_recall = sum(r['recall'] for r in successful_results) / len(successful_results)
-        avg_latency = sum(r['latency_ms'] for r in successful_results) / len(successful_results)
+        # Calculate averages for all metrics
+        metrics_to_average = [
+            'f1', 'precision', 'recall', 'exact_match',
+            'rouge_l_f1', 'rouge_l_precision', 'rouge_l_recall',
+            'bleu', 'bleu_1', 'bleu_2', 'bleu_3', 'bleu_4',
+            'faithfulness', 'latency_ms'
+        ]
+        
+        avg_metrics = {}
+        for metric in metrics_to_average:
+            if metric in successful_results[0]:  # Check if metric exists
+                avg_metrics[f'avg_{metric}'] = sum(r[metric] for r in successful_results) / len(successful_results)
         
         logger.info("*******************Evaluation Summary*******************")
         logger.info(f"Total Questions: {len(eval_data)}")
         logger.info(f"Successful Evaluations: {len(successful_results)}")
-        logger.info(f"Average F1 Score: {avg_f1:.3f}")
-        logger.info(f"Average Precision: {avg_precision:.3f}")
-        logger.info(f"Average Recall: {avg_recall:.3f}")
-        logger.info(f"Average Latency: {avg_latency:.1f}ms")
+        logger.info(f"Average F1 Score: {avg_metrics.get('avg_f1', 0):.3f}")
+        logger.info(f"Average Precision: {avg_metrics.get('avg_precision', 0):.3f}")
+        logger.info(f"Average Recall: {avg_metrics.get('avg_recall', 0):.3f}")
+        logger.info(f"Average Exact Match: {avg_metrics.get('avg_exact_match', 0):.3f}")
+        logger.info(f"Average ROUGE-L Precision: {avg_metrics.get('avg_rouge_l_precision', 0):.3f}")
+        logger.info(f"Average ROUGE-L Recall: {avg_metrics.get('avg_rouge_l_recall', 0):.3f}")
+        logger.info(f"Average ROUGE-L F1: {avg_metrics.get('avg_rouge_l_f1', 0):.3f}")
+        logger.info(f"Average BLEU Score: {avg_metrics.get('avg_bleu', 0):.3f}")
+        logger.info(f"Average BLEU-1: {avg_metrics.get('avg_bleu_1', 0):.3f}")
+        logger.info(f"Average BLEU-2: {avg_metrics.get('avg_bleu_2', 0):.3f}")
+        logger.info(f"Average BLEU-3: {avg_metrics.get('avg_bleu_3', 0):.3f}")
+        logger.info(f"Average BLEU-4: {avg_metrics.get('avg_bleu_4', 0):.3f}")
+        logger.info(f"Average Faithfulness: {avg_metrics.get('avg_faithfulness', 0):.3f}")
+        logger.info(f"Average Latency: {avg_metrics.get('avg_latency_ms', 0):.1f}ms")
     
     # Save results to CSV
     save_results_to_csv(results, logger)

@@ -1,0 +1,182 @@
+question,predicted_answer,ground_truth,context,latency_ms,success,error,precision,recall,f1,exact_match,rouge_l_precision,rouge_l_recall,rouge_l_f1,bleu_1,bleu_2,bleu_3,bleu_4,bleu,brevity_penalty,faithfulness,timestamp,model_name,question_id,category,difficulty,source_file
+How does a king move in chess?,"According to the provided context (8A), a king moves to any adjoining square that is not attacked by one or more of the opponent's pieces.","A king moves one square in any direction: horizontally, vertically, or diagonally.","rook on its original square, then that rook is transferred to the square the king has 
+just crossed. 
+ 
+ 
+ 
+Before white kingside castling 
+After white kingside castling 
+Before black queenside castli...",82776.9615650177,True,,0.28,0.5833333333333334,0.3783783783783784,0.0,0.2,0.4166666666666667,0.2702702702702703,0.30434782608695654,0.08333333333333333,0.043478260869565216,0.0,0.0,1.0,0.92,2025-05-23T01:58:25.278634,llama3.2,0,piece_movement,basic,chess_questions.json
+What is castling in chess?,"Castling in chess refers to a special move where the king moves two squares towards a rook, and then the rook moves to the square adjacent to the king. This counts as one move, executed simultaneously with the king and rook.","Castling is a special move involving the king and either rook. The king moves two squares toward the rook, and the rook moves to the square the king crossed over. This can only be done if neither piece has moved, there are no pieces between them, the king is not in check, and the king doesn't pass through or end up in check.","rook at the same time, but castling on that side is illegal, the player
+must choose either to castle on the other side, provided that castling
+
+---
+
+making the capture removes the captured piece immed...",56451.91931724548,True,,0.6097560975609756,0.3968253968253968,0.4807692307692307,0.0,0.5609756097560976,0.36507936507936506,0.4423076923076923,0.9259259259259259,0.40540540540540543,0.23076923076923078,0.13157894736842105,0.1910607415235743,0.5847415256680417,0.8536585365853658,2025-05-23T01:59:21.733872,llama3.2,1,special_moves,intermediate,chess_questions.json
+How does a pawn capture pieces?,"According to option (c), a pawn can capture an opponent's piece which is diagonally in front of it on an adjacent file.","A pawn captures diagonally one square forward to the left or right, unlike its normal forward movement.","ately in front of it on the same file
+(b) On its first move each pawn may advance two squares along
+the same file provided both squares are unoccupied
+(c) The pawn moves to a square occupied by an opp...",28396.71802520752,True,,0.18181818181818182,0.23529411764705882,0.20512820512820512,0.0,0.13636363636363635,0.17647058823529413,0.15384615384615383,0.19047619047619047,0.047619047619047616,0.0,0.0,0.0,1.0,0.8636363636363636,2025-05-23T01:59:50.132339,llama3.2,2,piece_movement,basic,chess_questions.json
+What is en passant?,"En passant is a type of capture in chess where a pawn captures an opponent's pawn as though the latter had been moved only one square, but this capture can be made only on the move following the opponent's pawn advance.","En passant is a special pawn capture that occurs when an opponent's pawn moves two squares forward from its starting position and lands beside your pawn. You can capture it as if it had only moved one square forward, removing the opponent's pawn and moving your pawn diagonally to the square the opponent's pawn passed over.","A pawn attacking a square crossed by an opponent’s pawn which has advanced two 
+squares in one move from its original square may capture this opponent’s pawn as 
+though the latter had been moved only ...",60903.43737602234,True,,0.5365853658536586,0.39285714285714285,0.45360824742268047,0.0,0.4146341463414634,0.30357142857142855,0.35051546391752575,0.6666666666666666,0.20512820512820512,0.10256410256410256,0.02631578947368421,0.09613870150887677,0.6936042968508961,0.8536585365853658,2025-05-23T02:00:51.037773,llama3.2,3,special_moves,advanced,chess_questions.json
+When is a game considered a draw?,"According to the provided context, a game is considered a draw in the following situations:
+
+1. The opponent accepts an implied offer of a draw.
+2. The director upholds the player's claim for a draw (Article 9.1).
+3. An agreement between the two players during the game (Article 5.3).
+4. A position is repeated three times (Article 9.2 and 5.4).
+5. The last 50 consecutive moves are made without pawn movement or piece capture (Article 9.3 and 5.5).
+6. A position is reached where checkmate cannot occur by any possible series of legal moves (Article 9.6).
+
+Note that a game can also be considered a draw if the director rules against a claim for a draw, in which case the implied offer remains in effect.","A chess game is drawn when there is stalemate, insufficient material to checkmate, threefold repetition of position, fifty-move rule (fifty moves without a pawn move or capture), or by mutual agreement between players.","To see that the team arrives on time for each match.  
+31G3. Lineup. 
+To see that the team plays the correct opponent, in the correct board order, with the correct colors.  
+31G4. Draw consequences. 
+...",70823.44365119934,True,,0.144,0.5454545454545454,0.22784810126582275,0.0,0.088,0.3333333333333333,0.13924050632911392,0.2222222222222222,0.018018018018018018,0.0,0.0,0.0,1.0,0.88,2025-05-23T02:02:01.865246,llama3.2,4,game_rules,intermediate,chess_questions.json
+What is the objective of Monopoly?,"The object of the game is to become the wealthiest player through buying, renting, and selling properties.","The objective is to become the wealthiest player through buying, renting, and selling property.","Bus: This lets you ""get off the bus early."" Look at the two white 
+dice. You can move the value of one die, the other die, or the 
+sum of both dice. So if you rolled a 1 and a 5, you can move 
+1 space...",50193.39299201965,True,,0.7058823529411765,0.8571428571428571,0.7741935483870968,0.0,0.7058823529411765,0.8571428571428571,0.7741935483870968,0.8,0.625,0.6,0.5714285714285714,0.6434588841607617,1.0,1.0,2025-05-23T02:02:52.060263,llama3.2,5,game_objective,basic,monopoly_questions.json
+How does a player go to Jail in Monopoly?,"A player can go to Jail in Monopoly in three ways:
+
+1. When their token lands on the space marked ""Go to Jail"".
+2. When they draw a card marked ""Go to Jail"".
+3. When they throw doubles three times in succession.","A player goes to Jail by landing on 'Go to Jail', drawing a 'Go to Jail' card, or rolling doubles three times in a row.","the number of spaces shown by your doubles throw; even though you 
+had thrown doubles, you do not take another turn; (2) using the ""Get 
+Out of Jail Free"" card if you have it; (3) purchasing the ""Get ...",66506.76608085632,True,,0.40476190476190477,0.68,0.5074626865671642,0.0,0.38095238095238093,0.64,0.4776119402985074,0.6071428571428571,0.2571428571428571,0.10810810810810811,0.02631578947368421,0.14517271748125699,1.0,0.8809523809523809,2025-05-23T02:03:58.568780,llama3.2,6,penalties,intermediate,monopoly_questions.json
+What happens when you pass 'GO'?,"According to the context, when you pass 'GO', the Banker pays you a $200 salary. However, if certain specific conditions are met (such as passing GO and drawing an ""Advance to GO"" card), you receive an additional $200 payment for passing GO for the first time or reaching it for the second time.","Each time a player's token lands on or passes over GO, the Banker pays them a $200 salary.","your play, the turn passes to the left. The tokens remain 
+on the spaces qccupied and proceed from that point on 
+the player's next turn. Two or more tokens may rest on the 
+same space at the same tim...",70003.15165519714,True,,0.16981132075471697,0.5,0.2535211267605634,0.0,0.1320754716981132,0.3888888888888889,0.19718309859154928,0.23684210526315788,0.1,0.058823529411764705,0.02,0.07265407815865123,1.0,0.8301886792452831,2025-05-23T02:05:08.574402,llama3.2,7,board_mechanics,basic,monopoly_questions.json
+How can a player get out of Jail?,"According to the text, a player can get out of Jail by throwing doubles on any of their next three turns, immediately moving forward the number of spaces shown by their throw.","By rolling doubles within 3 turns, using or buying a 'Get Out of Jail Free' card, or paying a $50 fine.","the number of spaces shown by your doubles throw; even though you 
+had thrown doubles, you do not take another turn; (2) using the ""Get 
+Out of Jail Free"" card if you have it; (3) purchasing the ""Get ...",46493.44754219055,True,,0.25,0.38095238095238093,0.3018867924528302,0.0,0.15625,0.23809523809523808,0.18867924528301888,0.2962962962962963,0.0967741935483871,0.06666666666666667,0.034482758620689655,0.09010504993659671,1.0,0.8125,2025-05-23T02:05:55.068845,llama3.2,8,penalties,intermediate,monopoly_questions.json
+What is the Speed Die used for in Monopoly?,"The Speed Die is a new way to play Monopoly that allows players to move faster through the game. When starting the game, an extra $1,000 is given to each player. After collecting the first $200 salary, players use the Speed Die on their turn.
+
+To roll the Speed Die, you roll it along with two white dice on your turn. Depending on the numbers rolled, you will move a certain number of spaces on the board:
+
+- If 1, 2, or 3 is rolled and then added to the roll of the two white dice, you'll zoom around the board.
+- A three-of-a-kind (all dice show the same number) allows you to move anywhere on the board.
+- The sum of all three dice is used when determining how much to pay on utilities.
+
+The Speed Die is not used for buying properties or paying rent but rather as a way to accelerate gameplay.","The Speed Die is used to make the game move faster, starting after a player passes GO for the first time.","MONOPOLY 
+Property Trading Game from Parker Brothers"" 
+AGES 8+ 
+2 to 8 Players 
+Contents: Gameboard, 3 dice, tokens, 32 houses, I2 hotels, Chance 
+and Community Chest cards, Title Deed cards, play mon...",83540.48991203308,True,,0.1118421052631579,0.8095238095238095,0.19653179190751446,0.0,0.07236842105263158,0.5238095238095238,0.1271676300578035,0.19540229885057472,0.05185185185185185,0.013888888888888888,0.006756756756756757,0.031226616678133468,1.0,0.8947368421052632,2025-05-23T02:07:18.613315,llama3.2,9,game_variants,intermediate,monopoly_questions.json
+When can houses be built on properties?,"According to the text, houses can be built on properties when:
+
+* The player has built one house on every property in a complete color-group.
+* The player then erects subsequent houses evenly, with each house being erected on an unimproved property of that group or another complete group owned by the player.",Houses can be built when a player owns all properties in a color-group and must be built evenly.,"Following the above rules, you may buy and erect at any time as 
+many houses as your judgement and financial standing will allow. But 
+you must build evenly, i.e., you cannot erect more than one house...",60292.38533973694,True,,0.23529411764705882,0.6666666666666666,0.3478260869565218,0.0,0.19607843137254902,0.5555555555555556,0.2898550724637681,0.3157894736842105,0.08333333333333333,0.04081632653061224,0.020833333333333332,0.06877843196674178,1.0,0.8431372549019608,2025-05-23T02:08:18.907694,llama3.2,10,property_development,intermediate,monopoly_questions.json
+What happens when the Bank runs out of money?,"When the Bank runs out of money, it ""goes broke."" If this happens, the game ends and the player who is now in debt (if they are not already bankrupt) must immediately retire from the game. The last player left in the game wins.",The Banker may issue more money by writing it on ordinary paper; the Bank never 'goes broke'.,"and auctions properties and hands out the~r proper Title Deed cards; 
+it sells houses and hotels to the players and loans money when 
+required on mortgages. 
+The Bank collects all taxes, fines, loans ...",69626.67298316956,True,,0.1590909090909091,0.4117647058823529,0.22950819672131148,0.0,0.11363636363636363,0.29411764705882354,0.16393442622950818,0.20588235294117646,0.04878048780487805,0.0,0.0,0.0,1.0,0.8636363636363636,2025-05-23T02:09:28.535980,llama3.2,11,bank_rules,advanced,monopoly_questions.json
+How many cards does each player start with in UNO?,"According to the context, each player is dealt 7 cards at the beginning of the game.",Each player is dealt seven cards at the start of the game.,"0-9
+0-9
+0-9
+0-9
+19 Red cards - 0 to 9
+19 Blue cards - 0 to 9
+19 Green cards - 0 to 9
+19 Yellow cards - 0 to 9
+2 Green Reverse cards
+2 Yellow Reverse cards
+2 Red Reverse cards
+2 Blue Reverse cards
++2
++...",68900.94304084778,True,,0.625,0.8333333333333334,0.7142857142857143,0.0,0.625,0.8333333333333334,0.7142857142857143,0.7142857142857143,0.4666666666666667,0.2857142857142857,0.07692307692307693,0.2925612730731506,1.0,0.75,2025-05-23T02:10:37.438546,llama3.2,12,setup,basic,uno_questions.json
+What is the objective of UNO?,The objective of UNO is to be the first player to win 500 points by getting rid of all your cards before your opponents do.,The objective is to be the first to get rid of all your cards and reach 500 points over multiple rounds.,"Are you still wondering about anything, or are you curious to find out more? Visit
+unorules.org to find all the questions and answers about Uno.
+You can find the whole FAQ at unorules.org/faq!
+
+---
+
+U...",53214.04051780701,True,,0.6,0.7142857142857143,0.6521739130434783,0.0,0.52,0.6190476190476191,0.5652173913043478,0.7142857142857143,0.4166666666666667,0.2608695652173913,0.18181818181818182,0.3446913316729032,1.0,0.84,2025-05-23T02:11:30.653677,llama3.2,13,game_objective,basic,uno_questions.json
+What happens if you forget to say 'UNO'?,"According to the rules, if you forget to say ""UNO"" before your card touches the DISCARD pile but you catch yourself before any other player catches you, you are safe and do not have to draw 4 cards.","If caught before the next player plays, you must draw 4 cards from the draw pile.","If you are not caught before the next player, either draw a card from the DRAW
+pile or draws a card from their hand to play, you do not have to draw the extra
+cards. 
+Once a player plays their last ca...",50012.70532608032,True,,0.2631578947368421,0.625,0.37037037037037035,0.0,0.21052631578947367,0.5,0.2962962962962963,0.3225806451612903,0.05405405405405406,0.027777777777777776,0.0,0.0,1.0,0.9736842105263158,2025-05-23T02:12:20.668379,llama3.2,14,special_rules,intermediate,uno_questions.json
+Can you play a Wild card even if you have a playable card?,"Yes, according to the text, You may play a Wild card even if you have another playable card in hand.","Yes, Wild cards can be played at any time, even if you have a matching card.","turn and is ""skipped"".
+If this card is turned up at the beginning of the play, the first player
+(the player to the left of the dealer) is skipped.
+This card may only be played on a matching color or a...",63678.22456359863,True,,0.4,0.5,0.4444444444444445,0.0,0.35,0.4375,0.38888888888888884,0.4444444444444444,0.15789473684210525,0.1111111111111111,0.058823529411764705,0.14634349617745637,1.0,0.85,2025-05-23T02:13:24.348615,llama3.2,15,special_cards,intermediate,uno_questions.json
+What does a 'Draw Two' card do?,"According to the text, when you play a ""Draw 2"" card:
+
+* The next person in line to play after this card is played loses his/her turn and is ""skipped"".
+* If this card is turned up at the beginning of the play, the first player (the player to the left of the dealer) is skipped.",The next player must draw two cards and forfeit their turn.,"SPECIAL CARDS
+When you play this card, the next person to play must draw 2 cards
+and forfeit his/her turn.
+If this card is turned up at the beginning of the play, the first player
+must draw two cards....",66737.21098899841,True,,0.1111111111111111,0.5454545454545454,0.1846153846153846,0.0,0.05555555555555555,0.2727272727272727,0.0923076923076923,0.17647058823529413,0.020833333333333332,0.0,0.0,0.0,1.0,0.9629629629629629,2025-05-23T02:14:31.087797,llama3.2,16,special_cards,basic,uno_questions.json
+How do you challenge a Wild Draw Four card?,"You can challenge a Wild Draw 4 card by suspecting that it has been played illegally. If you suspect this, you may challenge the player who played the card. The challenged player must then show their hand to you, and if they are found to be guilty, they must draw 4 cards.","If challenged, the player must show their hand. If they had a matching color, they draw 4; if not, the challenger draws 6.","next player to pick 4 cards from the DRAW pile and forfeit his/her
+turn. 
+However, there is a hitch! You can only play this card when you don't
+have a card in your hand that matches the color of the c...",59808.85815620422,True,,0.28846153846153844,0.6521739130434783,0.39999999999999997,0.0,0.23076923076923078,0.5217391304347826,0.32,0.40540540540540543,0.12,0.02,0.0,0.0,1.0,0.9230769230769231,2025-05-23T02:15:30.899288,llama3.2,17,special_rules,advanced,uno_questions.json
+What cards are worth the most points in UNO scoring?,"According to the provided context, the following cards are worth the most points in UNO:
+
+- Wild cards (4 points)
+- Wild Draw 4 cards (4 points) 
+- Numbered cards ""20"" and their face value are also given as 50 points each.",Wild and Wild Draw Four cards are worth 50 points each.,"0-9
+0-9
+0-9
+0-9
+19 Red cards - 0 to 9
+19 Blue cards - 0 to 9
+19 Green cards - 0 to 9
+19 Yellow cards - 0 to 9
+2 Green Reverse cards
+2 Yellow Reverse cards
+2 Red Reverse cards
+2 Blue Reverse cards
++2
++...",71863.48056793213,True,,0.2564102564102564,0.9090909090909091,0.3999999999999999,0.0,0.20512820512820512,0.7272727272727273,0.32,0.37037037037037035,0.1388888888888889,0.05555555555555555,0.0,0.0,1.0,0.8205128205128205,2025-05-23T02:16:42.764449,llama3.2,18,scoring,basic,uno_questions.json
+What is the goal of Ticket to Ride?,"According to the context, the goal of Ticket to Ride is to score the highest number of total points by claiming routes between cities, completing Continuous Paths of routes between two cities listed on Destination Tickets, and having the Longest Continuous Path of routes.",The goal is to score the most points by claiming routes and completing Destination Tickets.,"Each succeeding year, they met to celebrate the anniversary and pay tribute to Fogg. And each year a new expedition (always more
+difficult) with a new wager (always more expensive) was proposed. Now a...",52451.59554481506,True,,0.3181818181818182,0.9333333333333333,0.47457627118644075,0.0,0.29545454545454547,0.8666666666666667,0.44067796610169496,0.45161290322580644,0.1951219512195122,0.09523809523809523,0.04878048780487805,0.14224346663245402,1.0,0.8863636363636364,2025-05-23T02:17:35.219600,llama3.2,19,game_objective,basic,ticket_to_ride_questions.json
+What actions can a player take on their turn in Ticket to Ride?,"There is no information about Ticket to Ride in the provided context. The context appears to be about Monopoly. 
+
+In that case, according to the text, a player's turn consists of one of three actions:
+
+1. ∂ (Performing this action is not described)
+2. ∑ (Buying property or taking another action not specified)
+3. ∫ (Drawing a Chance or Community Chest card, paying rent, moving to ""Go"" space, etc.)
+
+It does not mention Ticket to Ride at all.","On their turn, a player may either draw Train Car cards, claim a route, or draw Destination Tickets.","NO, there are no more properties in the bank - 
+Advance to the 
+NOCT property on which you will owe another player money. 
+A few minor details: 
+Only the white dice are used when determining if you ro...",76257.24053382874,True,,0.05128205128205128,0.2222222222222222,0.08333333333333333,0.0,0.038461538461538464,0.16666666666666666,0.0625,0.06666666666666667,0.0,0.0,0.0,0.0,1.0,0.6923076923076923,2025-05-23T02:18:51.479829,llama3.2,20,gameplay,basic,ticket_to_ride_questions.json
+How do you claim a route?,"To claim a route, a player must play a set of cards equal to the number of spaces in the route. A set of cards must be of the same type. Most routes require a specific type of set, such as Blue Passenger Car cards for routes marked Blue.","To claim a route, play a set of Train Car cards matching the route's color and length, then place trains on the spaces.","as they are the same type.
+Example 2
+To claim the route from Montréal
+to New York, a player would need 
+a set of three Blue Passenger 
+Car cards. 
+Example 1
+
+---
+
+of the route. All the cards in the se...",53827.84676551819,True,,0.2857142857142857,0.6086956521739131,0.3888888888888889,0.0,0.22448979591836735,0.4782608695652174,0.3055555555555556,0.4827586206896552,0.1590909090909091,0.08888888888888889,0.044444444444444446,0.13198059750821928,1.0,0.9591836734693877,2025-05-23T02:19:45.310674,llama3.2,21,route_mechanics,intermediate,ticket_to_ride_questions.json
+What is the role of Locomotive cards?,"According to the context, Locomotive cards act as ""wild cards"" that can be part of any set of cards when claiming a route. They are multi-colored and do not match the color of any specific route, but rather can be used in place of any card to claim a route.","Locomotive cards are wild and can be used as any color when claiming routes, but drawing one face-up counts as both draws.","∂
+∑
+∫
+∑
+∫
+∑
+∫
+110 Train Car cards (12 each of Box, Passenger, Tanker, Reefer, Freight, Hopper, Coal, and Caboose cars, plus 14 Locomotives)
+30 Destination Ticket cards
+1 Summary
+card
+1 Longest Continu...",50614.50242996216,True,,0.28,0.6363636363636364,0.3888888888888889,0.0,0.18,0.4090909090909091,0.25,0.3888888888888889,0.08888888888888889,0.020833333333333332,0.0,0.0,1.0,0.86,2025-05-23T02:20:35.926883,llama3.2,22,special_cards,intermediate,ticket_to_ride_questions.json
+When does the game end in Ticket to Ride?,"The game ends when one player's stock of colored plastic trains gets down to only 0, 1, or 2 trains left at the end of their turn. This triggers a final turn for all players, and then they calculate their final scores according to the points earned from completed routes.","The game ends when a player has only 0, 1, or 2 trains left. Every player then takes one final turn.","the two cities, they will add the amount of points indicated on the Destination Ticket to their point totals at the end of the game. If they do not
+successfully connect the two cities, they deduct the...",89822.9603767395,True,,0.32,0.7619047619047619,0.4507042253521127,0.0,0.26,0.6190476190476191,0.36619718309859156,0.3902439024390244,0.20408163265306123,0.14583333333333334,0.10638297872340426,0.18748531152429082,1.0,0.94,2025-05-23T02:22:05.752413,llama3.2,23,endgame,basic,ticket_to_ride_questions.json
+What happens if three face-up cards are Locomotives?,"If at any time, three of the five face-up cards are Locomotives, all five cards are immediately discarded and five new ones are turned face-up to replace them.",All five face-up cards are discarded and replaced with five new ones.,"player who draws it may only draw one card, instead of two. If, after having drawn one
+card the replacement card is a Locomotive, the player cannot take it. If at any time, three
+of the five face-up c...",66023.62084388733,True,,0.35714285714285715,0.8333333333333334,0.5,0.0,0.32142857142857145,0.75,0.45000000000000007,0.45454545454545453,0.2692307692307692,0.11538461538461539,0.04,0.15416205018562634,1.0,1.0,2025-05-23T02:23:11.778323,llama3.2,24,special_rules,advanced,ticket_to_ride_questions.json
+What is the Longest Continuous Path bonus?,"The Longest Continuous Path bonus card awards 10 points to the player who has the longest continuous path of routes, as well as all tied players.",It is a 10-point bonus awarded to the player with the longest continuous path of trains.,"want to re-count the points for each player’s routes.
+Players should then reveal all their Destination Tickets and add (or subtract) the value of their Destination Tickets still in hand, based on whet...",81124.10306930542,True,,0.34615384615384615,0.5625,0.4285714285714286,0.0,0.34615384615384615,0.5625,0.4285714285714286,0.45,0.2727272727272727,0.18181818181818182,0.09090909090909091,0.21222494376290763,1.0,0.9230769230769231,2025-05-23T02:24:32.905317,llama3.2,25,scoring,intermediate,ticket_to_ride_questions.json

@@ -71,11 +71,21 @@ def query_rag(query_text: str, logger):
         
         logger.info("*******************[Pipeline 3] Generating response from LLM completed successfully*******************")
         
-        return response_text
+        return {
+            'answer': response_text,
+            'context': context_text, # needed for calc faithfulness (%)
+            'sources': sources,
+            'retrieved_docs': results
+        }
     except Exception as e:
         logger.error(f"Error querying Chroma DB: {e}")
         logger.debug(traceback.format_exc())
-        return []
+        return {
+            'answer': '',
+            'context': '',
+            'sources': [],
+            'retrieved_docs': []
+        }
 
 
 def run_query_rag(query_text):
