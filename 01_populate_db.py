@@ -152,7 +152,7 @@ def main():
     try:
         logger = setup_logger("create_db_logger", LOG_FILE)
         logger.info(" ")
-        logger.info("*******************Starting db population*******************")
+        logger.info("*******************[Pipeline 1] Starting db population*******************")
         
         # check if the db should be cleared (using the --clear flag)
         parser = argparse.ArgumentParser(description="Populate the database")
@@ -181,7 +181,7 @@ def main():
         save_to_chroma_db(chunks, logger)
         
         
-        logger.info("*******************DB population completed*******************")
+        logger.info("*******************[Pipeline 1] DB population completed*******************")
     except Exception as e:
         logger.error(f"Error in main: {e}")
         logger.debug(traceback.format_exc())

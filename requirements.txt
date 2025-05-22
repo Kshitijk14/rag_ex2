@@ -2,6 +2,7 @@ langchain
 langchain-community
 langchain-chroma
 langchain-huggingface
+langchain-ollama
 chromadb
 pypdf
 pytest
