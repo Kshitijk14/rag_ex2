@@ -5,7 +5,8 @@ import traceback
 import shutil
 import argparse
 from logger import setup_logger
-from langchain_community.document_loaders import PyPDFDirectoryLoader
+# from langchain_community.document_loaders import PyPDFDirectoryLoader
+from langchain_community.document_loaders import PyMuPDFLoader # better layout accuracy; handles unicode, tables, & symbols better; slightly slower, but still faster than PDFMiner; supports text extraction and images 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema import Document
 from get_embedding_func import embedding_function
@@ -33,11 +34,25 @@ def load_docs(logger):
     try:
         logger.info("*******************Loading docs from the directory*******************")
         
-        doc_loader = PyPDFDirectoryLoader(GAME_RULES_DATA_PATH, glob="*.pdf")   
-        logger.info(f"[Stage 1] Loading documents from {GAME_RULES_DATA_PATH}")
+        # doc_loader = PyPDFDirectoryLoader(GAME_RULES_DATA_PATH, glob="*.pdf")   
+        # logger.info(f"[Stage 1] Loading documents from {GAME_RULES_DATA_PATH}")
         
+        all_docs = []
+        logger.info(f"[Stage 1] Scanning directory: {GAME_RULES_DATA_PATH}")
+        
+        for filename in os.listdir(GAME_RULES_DATA_PATH):
+            if filename.lower().endswith(".pdf"):
+                file_path = os.path.join(GAME_RULES_DATA_PATH, filename)
+                logger.info(f"[Stage 2] Loading: {filename}")
+                loader = PyMuPDFLoader(file_path)
+                docs = loader.load()
+                all_docs.extend(docs)
+        
+        logger.info(f"[Stage 3] Loaded {len(all_docs)} documents.")
         logger.info("*******************Docs loaded successfully*******************")
-        return doc_loader.load()
+        
+        # return doc_loader.load()
+        return all_docs
     except Exception as e:
         logger.error(f"Error loading documents: {e}")
         logger.debug(traceback.format_exc())

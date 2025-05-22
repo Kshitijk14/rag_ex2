@@ -2,8 +2,13 @@ LOG_PATH: "logs"
 GAME_RULES_DATA_PATH: "data/game_rules"
 CHROMA_DB_PATH: "chromadb"
 CHROMA_DB_FILE: "chroma.sqlite3"
-EVALUATION_DATA_PATH: "data/evaluation"
-RESULTS_CSV_PATH: "artifacts/results"
+
+EVALUATION_DATA_PATHS: 
+  - "data/evaluation_data/chess_questions.json"
+  - "data/evaluation_data/monopoly_questions.json"
+  - "data/evaluation_data/uno_questions.json"
+  - "data/evaluation_data/ticket_to_ride_questions.json"
+RESULTS_CSV_PATH: "artifacts/evaluation_results.csv"
 
 CHUNK_SIZE: 800
 CHUNK_OVERLAP: 80
