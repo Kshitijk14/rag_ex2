@@ -1,0 +1,32 @@
+[
+    {
+        "question": "How does a king move in chess?",
+        "ground_truth": "A king moves one square in any direction: horizontally, vertically, or diagonally.",
+        "category": "piece_movement",
+        "difficulty": "basic"
+    },
+    {
+        "question": "What is castling in chess?",
+        "ground_truth": "Castling is a special move involving the king and either rook. The king moves two squares toward the rook, and the rook moves to the square the king crossed over. This can only be done if neither piece has moved, there are no pieces between them, the king is not in check, and the king doesn't pass through or end up in check.",
+        "category": "special_moves",
+        "difficulty": "intermediate"
+    },
+    {
+        "question": "How does a pawn capture pieces?",
+        "ground_truth": "A pawn captures diagonally one square forward to the left or right, unlike its normal forward movement.",
+        "category": "piece_movement",
+        "difficulty": "basic"
+    },
+    {
+        "question": "What is en passant?",
+        "ground_truth": "En passant is a special pawn capture that occurs when an opponent's pawn moves two squares forward from its starting position and lands beside your pawn. You can capture it as if it had only moved one square forward, removing the opponent's pawn and moving your pawn diagonally to the square the opponent's pawn passed over.",
+        "category": "special_moves",
+        "difficulty": "advanced"
+    },
+    {
+        "question": "When is a game considered a draw?",
+        "ground_truth": "A chess game is drawn when there is stalemate, insufficient material to checkmate, threefold repetition of position, fifty-move rule (fifty moves without a pawn move or capture), or by mutual agreement between players.",
+        "category": "game_rules",
+        "difficulty": "intermediate"
+    }
+]

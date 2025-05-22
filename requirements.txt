@@ -8,3 +8,8 @@ pypdf
 pytest
 sentence-transformers
 huggingface_hub[hf_xet]
+numpy
+pandas
+# sklearn
+# matplotlib
+# seaborn

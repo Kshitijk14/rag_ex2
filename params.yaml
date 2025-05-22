@@ -2,8 +2,12 @@ LOG_PATH: "logs"
 GAME_RULES_DATA_PATH: "data/game_rules"
 CHROMA_DB_PATH: "chromadb"
 CHROMA_DB_FILE: "chroma.sqlite3"
+EVALUATION_DATA_PATH: "data/evaluation"
+RESULTS_CSV_PATH: "artifacts/results"
+
 CHUNK_SIZE: 800
 CHUNK_OVERLAP: 80
+
 # EMBEDDING_MODEL: "sentence-transformers/all-MiniLM-L6-v2"
 EMBEDDING_MODEL: "BAAI/bge-small-en"
 GENERATION_MODEL: "llama3.2"

@@ -1,0 +1,44 @@
+[
+    {
+        "question": "What is the objective of Monopoly?",
+        "ground_truth": "The objective is to become the wealthiest player through buying, renting, and selling property.",
+        "category": "game_objective",
+        "difficulty": "basic"
+    },
+    {
+        "question": "How does a player go to Jail in Monopoly?",
+        "ground_truth": "A player goes to Jail by landing on 'Go to Jail', drawing a 'Go to Jail' card, or rolling doubles three times in a row.",
+        "category": "penalties",
+        "difficulty": "intermediate"
+    },
+    {
+        "question": "What happens when you pass 'GO'?",
+        "ground_truth": "Each time a player's token lands on or passes over GO, the Banker pays them a $200 salary.",
+        "category": "board_mechanics",
+        "difficulty": "basic"
+    },
+    {
+        "question": "How can a player get out of Jail?",
+        "ground_truth": "By rolling doubles within 3 turns, using or buying a 'Get Out of Jail Free' card, or paying a $50 fine.",
+        "category": "penalties",
+        "difficulty": "intermediate"
+    },
+    {
+        "question": "What is the Speed Die used for in Monopoly?",
+        "ground_truth": "The Speed Die is used to make the game move faster, starting after a player passes GO for the first time.",
+        "category": "game_variants",
+        "difficulty": "intermediate"
+    },
+    {
+        "question": "When can houses be built on properties?",
+        "ground_truth": "Houses can be built when a player owns all properties in a color-group and must be built evenly.",
+        "category": "property_development",
+        "difficulty": "intermediate"
+    },
+    {
+        "question": "What happens when the Bank runs out of money?",
+        "ground_truth": "The Banker may issue more money by writing it on ordinary paper; the Bank never 'goes broke'.",
+        "category": "bank_rules",
+        "difficulty": "advanced"
+    }
+]

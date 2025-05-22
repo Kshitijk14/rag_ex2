@@ -1,0 +1,44 @@
+[
+    {
+        "question": "What is the goal of Ticket to Ride?",
+        "ground_truth": "The goal is to score the most points by claiming routes and completing Destination Tickets.",
+        "category": "game_objective",
+        "difficulty": "basic"
+    },
+    {
+        "question": "What actions can a player take on their turn in Ticket to Ride?",
+        "ground_truth": "On their turn, a player may either draw Train Car cards, claim a route, or draw Destination Tickets.",
+        "category": "gameplay",
+        "difficulty": "basic"
+    },
+    {
+        "question": "How do you claim a route?",
+        "ground_truth": "To claim a route, play a set of Train Car cards matching the route's color and length, then place trains on the spaces.",
+        "category": "route_mechanics",
+        "difficulty": "intermediate"
+    },
+    {
+        "question": "What is the role of Locomotive cards?",
+        "ground_truth": "Locomotive cards are wild and can be used as any color when claiming routes, but drawing one face-up counts as both draws.",
+        "category": "special_cards",
+        "difficulty": "intermediate"
+    },
+    {
+        "question": "When does the game end in Ticket to Ride?",
+        "ground_truth": "The game ends when a player has only 0, 1, or 2 trains left. Every player then takes one final turn.",
+        "category": "endgame",
+        "difficulty": "basic"
+    },
+    {
+        "question": "What happens if three face-up cards are Locomotives?",
+        "ground_truth": "All five face-up cards are discarded and replaced with five new ones.",
+        "category": "special_rules",
+        "difficulty": "advanced"
+    },
+    {
+        "question": "What is the Longest Continuous Path bonus?",
+        "ground_truth": "It is a 10-point bonus awarded to the player with the longest continuous path of trains.",
+        "category": "scoring",
+        "difficulty": "intermediate"
+    }
+]

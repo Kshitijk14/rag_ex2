@@ -1,0 +1,44 @@
+[
+    {
+        "question": "How many cards does each player start with in UNO?",
+        "ground_truth": "Each player is dealt seven cards at the start of the game.",
+        "category": "setup",
+        "difficulty": "basic"
+    },
+    {
+        "question": "What is the objective of UNO?",
+        "ground_truth": "The objective is to be the first to get rid of all your cards and reach 500 points over multiple rounds.",
+        "category": "game_objective",
+        "difficulty": "basic"
+    },
+    {
+        "question": "What happens if you forget to say 'UNO'?",
+        "ground_truth": "If caught before the next player plays, you must draw 4 cards from the draw pile.",
+        "category": "special_rules",
+        "difficulty": "intermediate"
+    },
+    {
+        "question": "Can you play a Wild card even if you have a playable card?",
+        "ground_truth": "Yes, Wild cards can be played at any time, even if you have a matching card.",
+        "category": "special_cards",
+        "difficulty": "intermediate"
+    },
+    {
+        "question": "What does a 'Draw Two' card do?",
+        "ground_truth": "The next player must draw two cards and forfeit their turn.",
+        "category": "special_cards",
+        "difficulty": "basic"
+    },
+    {
+        "question": "How do you challenge a Wild Draw Four card?",
+        "ground_truth": "If challenged, the player must show their hand. If they had a matching color, they draw 4; if not, the challenger draws 6.",
+        "category": "special_rules",
+        "difficulty": "advanced"
+    },
+    {
+        "question": "What cards are worth the most points in UNO scoring?",
+        "ground_truth": "Wild and Wild Draw Four cards are worth 50 points each.",
+        "category": "scoring",
+        "difficulty": "basic"
+    }
+]

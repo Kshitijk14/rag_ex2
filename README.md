@@ -14,6 +14,16 @@
        * & response generation (text generation) 
     4. prompt
 
+## Evaluation Pipeline:
+   ### Initializing with only F1 score for logical understanding
+   * **f1 score** → 
+     * measures how well the generated answer matches the ground truth answer at the token level
+     * harmonic mean of precision and recall
+     * 2 * (Precision * Recall) / (Precision + Recall)
+   * **precision** → what fraction of generated tokens are relevant?
+   * **recall** → what fraction of relevant tokens were generated?
+
+
 ## References:
 1. Embedding Model:
    * [bge-small-en-v1.5](https://huggingface.co/BAAI/bge-small-en-v1.5)
