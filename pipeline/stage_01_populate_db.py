@@ -4,6 +4,7 @@ import logging
 import traceback
 import shutil
 import argparse
+from logger import setup_logger
 from langchain_community.document_loaders import PyPDFDirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema import Document
@@ -26,22 +27,6 @@ CHUNK_OVERLAP = params["CHUNK_OVERLAP"]
 LOG_DIR = os.path.join(os.getcwd(), LOG_PATH)
 os.makedirs(LOG_DIR, exist_ok=True)  # Create the logs directory if it doesn't exist
 LOG_FILE = os.path.join(LOG_DIR, "01_populate_db.log")
-
-def setup_logger(name, log_file):
-    logger = logging.getLogger(name)
-    logger.setLevel(logging.INFO)
-
-    # Prevent adding multiple handlers on re-imports
-    if not logger.handlers:
-        formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s")
-        fh = logging.FileHandler(log_file)
-        fh.setFormatter(formatter)
-        ch = logging.StreamHandler()
-        ch.setFormatter(formatter)
-        logger.addHandler(fh)
-        logger.addHandler(ch)
-
-    return logger
 
 
 def load_docs(logger):
@@ -148,20 +133,16 @@ def clear_database():
         shutil.rmtree(CHROMA_DB_PATH)
 
 
-def main():
+def run_populate_db(reset=False):
     try:
         logger = setup_logger("create_db_logger", LOG_FILE)
         logger.info(" ")
         logger.info("*******************[Pipeline 1] Starting db population*******************")
         
         # check if the db should be cleared (using the --clear flag)
-        parser = argparse.ArgumentParser(description="Populate the database")
-        parser.add_argument("--reset", action="store_true", help="Reset the database.")
-        args = parser.parse_args()
-        if args.reset:
+        if reset:
             logger.info("Clearing the database...")
             clear_database()
-        
         
         # create (or update) the db
         documents = load_docs(logger)
@@ -188,4 +169,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # Create CLI.
+    parser = argparse.ArgumentParser(description="Populate the database")
+    parser.add_argument("--reset", action="store_true", help="Reset the database.")
+    args = parser.parse_args()
+    run_populate_db(reset=args.reset)

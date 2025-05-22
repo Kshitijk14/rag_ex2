@@ -3,6 +3,7 @@ import yaml
 import logging
 import traceback
 import argparse
+from logger import setup_logger
 from langchain_chroma import Chroma
 from get_embedding_func import embedding_function
 from langchain.prompts import ChatPromptTemplate
@@ -23,22 +24,6 @@ GENERATION_MODEL = params["GENERATION_MODEL"]
 LOG_DIR = os.path.join(os.getcwd(), LOG_PATH)
 os.makedirs(LOG_DIR, exist_ok=True)  # Create the logs directory if it doesn't exist
 LOG_FILE = os.path.join(LOG_DIR, "02_query_data.log")
-
-def setup_logger(name, log_file):
-    logger = logging.getLogger(name)
-    logger.setLevel(logging.INFO)
-
-    # Prevent adding multiple handlers on re-imports
-    if not logger.handlers:
-        formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s")
-        fh = logging.FileHandler(log_file)
-        fh.setFormatter(formatter)
-        ch = logging.StreamHandler()
-        ch.setFormatter(formatter)
-        logger.addHandler(fh)
-        logger.addHandler(ch)
-
-    return logger
 
 
 PROMPT_TEMPLATE = """
@@ -94,16 +79,15 @@ def query_rag(query_text: str, logger):
         return []
 
 
-def main():
+def run_query_rag(query_text):
     logger = setup_logger("create_db_logger", LOG_FILE)
     logger.info(" ")
     
-    # Create CLI.
-    parser = argparse.ArgumentParser()
-    parser.add_argument("query_text", type=str, help="The query text.")
-    args = parser.parse_args()
-    query_text = args.query_text
-    query_rag(query_text, logger)
+    return query_rag(query_text, logger)
 
 if __name__ == "__main__":
-    main()
+    # Create CLI.
+    parser = argparse.ArgumentParser(description="Query the Chroma DB.")
+    parser.add_argument("query_text", type=str, help="The query text.")
+    args = parser.parse_args()
+    run_query_rag(args.query_text)
