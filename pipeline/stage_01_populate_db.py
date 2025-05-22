@@ -1,9 +1,9 @@
 import os
 import yaml
-import logging
 import traceback
 import shutil
 import argparse
+from tqdm import tqdm
 from logger import setup_logger
 # from langchain_community.document_loaders import PyPDFDirectoryLoader
 from langchain_community.document_loaders import PyMuPDFLoader # better layout accuracy; handles unicode, tables, & symbols better; slightly slower, but still faster than PDFMiner; supports text extraction and images 
@@ -23,6 +23,7 @@ CHROMA_DB_PATH = params["CHROMA_DB_PATH"]
 CHROMA_DB_FILE = params["CHROMA_DB_FILE"]
 CHUNK_SIZE = params["CHUNK_SIZE"]
 CHUNK_OVERLAP = params["CHUNK_OVERLAP"]
+BATCH_SIZE = params["BATCH_SIZE"]
 
 # setup logging
 LOG_DIR = os.path.join(os.getcwd(), LOG_PATH)
@@ -38,15 +39,23 @@ def load_docs(logger):
         # logger.info(f"[Stage 1] Loading documents from {GAME_RULES_DATA_PATH}")
         
         all_docs = []
+        pdf_files = []
         logger.info(f"[Stage 1] Scanning directory: {GAME_RULES_DATA_PATH}")
         
-        for filename in os.listdir(GAME_RULES_DATA_PATH):
-            if filename.lower().endswith(".pdf"):
-                file_path = os.path.join(GAME_RULES_DATA_PATH, filename)
-                logger.info(f"[Stage 2] Loading: {filename}")
-                loader = PyMuPDFLoader(file_path)
-                docs = loader.load()
-                all_docs.extend(docs)
+        # Collect all PDF paths (including subfolders)
+        for root, dirs, files in os.walk(GAME_RULES_DATA_PATH):
+            for file in files:
+                if file.lower().endswith(".pdf"):
+                    pdf_files.append(os.path.join(root, file))
+                    logger.info(f"[Stage 2] Loading: {pdf_files}")
+                    
+                    for file_path in tqdm(pdf_files, desc="Loading PDFs"):
+                        try:
+                            loader = PyMuPDFLoader(file_path)
+                            docs = loader.load()
+                            all_docs.extend(docs)
+                        except Exception as inner_e:
+                            logger.warning(f"Failed to load {file_path}: {inner_e}")
         
         logger.info(f"[Stage 3] Loaded {len(all_docs)} documents.")
         logger.info("*******************Docs loaded successfully*******************")
@@ -77,6 +86,21 @@ def split_docs(docs: list[Document], logger):
         logger.debug(traceback.format_exc())
         return []
 
+def process_in_batches(documents, batch_size, ingest_fn, logger):
+    """
+    Process documents in batches through a given ingestion function.
+    """
+    total = len(documents)
+    logger.info(f"Processing {total} documents in batches of {batch_size}...")
+
+    for i in tqdm(range(0, total, batch_size), desc="Ingesting batches"):
+        batch = documents[i:i + batch_size]
+        try:
+            ingest_fn(batch)
+        except Exception as e:
+            logger.error(f"Failed to ingest batch {i // batch_size}: {e}")
+            logger.debug(traceback.format_exc())
+
 # logic to add & update items in the existing db
 def save_to_chroma_db(chunks: list[Document], logger):
     try:
@@ -90,27 +114,53 @@ def save_to_chroma_db(chunks: list[Document], logger):
         logger.info(f"[Stage 3.1] Loading existing DB from path: {CHROMA_DB_PATH}")
         
         # calculate "page:chunk" IDs
+        # Step 1: Assign chunk IDs
         chunks_with_ids = calc_chunk_ids(chunks)
         logger.info(f"[Stage 3.2] Calculated chunk IDs for {len(chunks_with_ids)} chunks")
         
         # add/update the docs
+        # Step 2: Get existing IDs from the DB
         existing_items = db.get(include=[]) # IDs are always included by default
         existing_ids = set(existing_items["ids"])
         logger.info(f"[Stage 3.3] No. of existing items (i.e. docs) in the db: {len(existing_ids)}")
         
         # only add docs that don't exist in the db
+        # Step 3: Filter only new chunks
         new_chunks = []
         for chunk in chunks_with_ids:
             if chunk.metadata["chunk_id"] not in existing_ids:
                 new_chunks.append(chunk)
         logger.info(f"[Stage 3.4] No. of new chunks to add: {len(new_chunks)}")
         
-        if len(new_chunks):
-            logger.info(f"[Stage 3.5(a)] Adding {len(new_chunks)} new chunks to the db")
-            new_chunk_ids = [chunk.metadata["chunk_id"] for chunk in new_chunks]
-            db.add_documents(new_chunks, ids=new_chunk_ids)
+        # ✅ Step 4: Safety Net — remove duplicates within `new_chunks`
+        seen_ids = set()
+        unique_new_chunks = []
+        for chunk in new_chunks:
+            cid = chunk.metadata["chunk_id"]
+            if cid not in seen_ids:
+                seen_ids.add(cid)
+                unique_new_chunks.append(chunk)
+        
+        logger.info(f"[Stage 3.5] Unique new chunks after deduplication: {len(unique_new_chunks)}")
+        
+        # if len(new_chunks):
+        #     logger.info(f"[Stage 3.5(a)] Adding {len(new_chunks)} new chunks to the db")
+        #     new_chunk_ids = [chunk.metadata["chunk_id"] for chunk in new_chunks]
+        #     db.add_documents(new_chunks, ids=new_chunk_ids)
+        # else:
+        #     logger.info("[Stage 3.5(b)] No new chunks to add to the db")
+        
+        # Step 5: Ingest in batches
+        if unique_new_chunks:
+            logger.info("[Stage 3.6(a)] Ingesting new chunks in batches...")
+            process_in_batches(
+                documents=unique_new_chunks,
+                batch_size=BATCH_SIZE,
+                ingest_fn=lambda batch: db.add_documents(batch, ids=[doc.metadata["chunk_id"] for doc in batch]),
+                logger=logger
+            )
         else:
-            logger.info("[Stage 3.5(b)] No new chunks to add to the db")
+            logger.info("[Stage 3.6(b)] No new unique chunks to add to DB")
         
         logger.info("*******************Chunks saved to Chroma DB successfully*******************")        
     except Exception as e:
@@ -126,7 +176,12 @@ def calc_chunk_ids(chunks):
     for chunk in chunks:
         source = chunk.metadata.get("source")
         page = chunk.metadata.get("page")
-        curr_page_id = (f"{source}:{page}")
+        
+        # Normalize and standardize the path for cross-platform consistency
+        norm_source = os.path.normpath(source)
+        rel_source = os.path.relpath(norm_source, GAME_RULES_DATA_PATH).replace("\\", "/")
+        
+        curr_page_id = (f"{rel_source}:{page}")
         
         # if the page ID is the same as the last one, increment the index
         if curr_page_id == last_page_id:

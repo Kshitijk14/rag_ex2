@@ -47,7 +47,6 @@ def main():
     
     try:
         # Step 3: Run the query through the RAG pipeline
-        print("\nRunning query...")
         logger.info("*******************Running query through RAG pipeline started*******************")
         response = run_query_rag(query)
         print("\nLLM Response:")

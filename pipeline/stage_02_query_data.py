@@ -1,6 +1,5 @@
 import os
 import yaml
-import logging
 import traceback
 import argparse
 from logger import setup_logger

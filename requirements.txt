@@ -4,8 +4,10 @@ langchain-chroma
 langchain-huggingface
 langchain-ollama
 chromadb
-pypdf
+# pypdf
+pymupdf # PyMuPDF better than pypdf (supports unicode)
 pytest
+tqdm
 sentence-transformers
 huggingface_hub[hf_xet]
 numpy
