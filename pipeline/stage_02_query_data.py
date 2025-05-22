@@ -23,7 +23,7 @@ GENERATION_MODEL = params["GENERATION_MODEL"]
 # setup logging
 LOG_DIR = os.path.join(os.getcwd(), LOG_PATH)
 os.makedirs(LOG_DIR, exist_ok=True)  # Create the logs directory if it doesn't exist
-LOG_FILE = os.path.join(LOG_DIR, "02_query_data.log")
+LOG_FILE = os.path.join(LOG_DIR, "stage_02_query_data.log")
 
 
 PROMPT_TEMPLATE = """
@@ -80,7 +80,7 @@ def query_rag(query_text: str, logger):
 
 
 def run_query_rag(query_text):
-    logger = setup_logger("create_db_logger", LOG_FILE)
+    logger = setup_logger("query_data_logger", LOG_FILE)
     logger.info(" ")
     
     return query_rag(query_text, logger)

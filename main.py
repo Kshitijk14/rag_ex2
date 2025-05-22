@@ -23,7 +23,7 @@ def main():
     args = parser.parse_args()
     
     try:
-        logger = setup_logger("create_db_logger", LOG_FILE)
+        logger = setup_logger("main_logger", LOG_FILE)
         logger.info(" ")
         logger.info("*******************Main pipeline started*******************")
         # Step 1: Populate the Chroma DB

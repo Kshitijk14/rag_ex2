@@ -26,7 +26,7 @@ CHUNK_OVERLAP = params["CHUNK_OVERLAP"]
 # setup logging
 LOG_DIR = os.path.join(os.getcwd(), LOG_PATH)
 os.makedirs(LOG_DIR, exist_ok=True)  # Create the logs directory if it doesn't exist
-LOG_FILE = os.path.join(LOG_DIR, "01_populate_db.log")
+LOG_FILE = os.path.join(LOG_DIR, "stage_01_populate_db.log")
 
 
 def load_docs(logger):
@@ -135,7 +135,7 @@ def clear_database():
 
 def run_populate_db(reset=False):
     try:
-        logger = setup_logger("create_db_logger", LOG_FILE)
+        logger = setup_logger("populate_db_logger", LOG_FILE)
         logger.info(" ")
         logger.info("*******************[Pipeline 1] Starting db population*******************")
         
