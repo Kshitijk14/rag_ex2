@@ -13,6 +13,7 @@ RESULTS_CSV_PATH: "artifacts/evaluation_results.csv"
 CHUNK_SIZE: 800
 CHUNK_OVERLAP: 80
 BATCH_SIZE: 64
+K: 5
 
 # EMBEDDING_MODEL: "sentence-transformers/all-MiniLM-L6-v2"
 EMBEDDING_MODEL: "BAAI/bge-small-en"

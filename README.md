@@ -17,6 +17,10 @@
 # Evaluation Pipeline:
 
 ## Retrieval Metrics
+   * **Mean Reciprocal Rank (MRR)**
+   * **Normalized Discounted Cumulative Gain (nDCG@k)**
+   * **Precision@k**
+   * **Recall@k**
 
 ## Generation Metrics
    ### Initializing with only F1 score for logical understanding

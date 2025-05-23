@@ -2,30 +2,65 @@
     {
         "question": "How does a king move in chess?",
         "ground_truth": "A king moves one square in any direction: horizontally, vertically, or diagonally.",
+        "relevant_doc_ids": [
+            "chess/LawsOfChess.pdf:5:1", 
+            "chess/ideabase_chessrules.pdf:1:2", 
+            "chess/us-chess-rule-book-online-only-edition-chapters-1-2-10-11-9-1-20.pdf:22:3", 
+            "chess/ideabase_chessrules.pdf:3:3", 
+            "chess/us-chess-rule-book-online-only-edition-chapters-1-2-10-11-9-1-20.pdf:22:1"
+        ],
         "category": "piece_movement",
         "difficulty": "basic"
     },
     {
         "question": "What is castling in chess?",
         "ground_truth": "Castling is a special move involving the king and either rook. The king moves two squares toward the rook, and the rook moves to the square the king crossed over. This can only be done if neither piece has moved, there are no pieces between them, the king is not in check, and the king doesn't pass through or end up in check.",
+        "relevant_doc_ids": [
+            "chess/ideabase_chessrules.pdf:4:3", 
+            "chess/us-chess-rule-book-online-only-edition-chapters-1-2-10-11-9-1-20.pdf:22:1",
+            "chess/us-chess-rule-book-online-only-edition-chapters-1-2-10-11-9-1-20.pdf:27:0",
+            "chess/LawsOfChess.pdf:21:2", 
+            "chess/LawsOfChess.pdf:21:3"
+        ],
         "category": "special_moves",
         "difficulty": "intermediate"
     },
     {
         "question": "How does a pawn capture pieces?",
         "ground_truth": "A pawn captures diagonally one square forward to the left or right, unlike its normal forward movement.",
+        "relevant_doc_ids": [
+            "chess/ideabase_chessrules.pdf:3:1", 
+            "chess/ideabase_chessrules.pdf:14:3", 
+            "chess/ideabase_chessrules.pdf:2:2", 
+            "chess/LawsOfChess.pdf:4:1", 
+            "chess/LawsOfChess.pdf:6:3"
+        ],
         "category": "piece_movement",
         "difficulty": "basic"
     },
     {
         "question": "What is en passant?",
         "ground_truth": "En passant is a special pawn capture that occurs when an opponent's pawn moves two squares forward from its starting position and lands beside your pawn. You can capture it as if it had only moved one square forward, removing the opponent's pawn and moving your pawn diagonally to the square the opponent's pawn passed over.",
+        "relevant_doc_ids": [
+            "chess/LawsOfChess.pdf:4:1", 
+            "chess/ideabase_chessrules.pdf:14:2", 
+            "chess/ideabase_chessrules.pdf:3:1", 
+            "chess/us-chess-rule-book-online-only-edition-chapters-1-2-10-11-9-1-20.pdf:23:3",
+            "chess/LawsOfChess.pdf:18:0"
+        ],
         "category": "special_moves",
         "difficulty": "advanced"
     },
     {
         "question": "When is a game considered a draw?",
         "ground_truth": "A chess game is drawn when there is stalemate, insufficient material to checkmate, threefold repetition of position, fifty-move rule (fifty moves without a pawn move or capture), or by mutual agreement between players.",
+        "relevant_doc_ids": [
+            "chess/us-chess-rule-book-online-only-edition-chapters-1-2-10-11-9-1-20.pdf:103:4",
+            "chess/LawsOfChess.pdf:12:0", 
+            "chess/us-chess-rule-book-online-only-edition-chapters-1-2-10-11-9-1-20.pdf:34:1",
+            "chess/ideabase_chessrules.pdf:5:2", 
+            "chess/ideabase_chessrules.pdf:10:2"
+        ],
         "category": "game_rules",
         "difficulty": "intermediate"
     }
