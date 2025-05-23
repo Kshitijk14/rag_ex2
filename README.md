@@ -1,5 +1,32 @@
 # rag_ex2
 
+## How to:
+   * **environment setup** →
+      ```
+      python -m venv env
+
+      .\env\Scripts\activate
+
+      pip install -r requirements.txt
+      ```
+   * **train RAG pipeline** →
+      ```
+      py main.py
+      ```
+   * **test RAG pipeline** →
+      ```
+      pytest test_rag.py
+      ```
+      *OR*
+      ```
+      py test_rag.py
+      ```
+      *(but after uncommenting the `if __name__ == "__main__":`)*
+   * **evaluate RAG pipeline** →
+      ```
+      py evaluate_rag.py
+      ```
+
 ### Rag Ex. V1 Link: [rag_ex v1](https://github.com/Kshitijk14/rag_ex)
 
 ## Key tasks:
